@@ -10,42 +10,13 @@ pipeline:
       - dep ensure
       - sh .drone.sh
 
-  publish:
-    image: plugins/docker
-    repo: plugins/docker
-    tags: [ "latest", "17", "17.05" ]
-    secrets: [ docker_username, docker_password ]
-    dockerfile: docker/Dockerfile
-    when:
-      branch: master
-      event: push
-
-  publish_heroku:
-    image: plugins/docker
-    repo: plugins/heroku
-    tags: [ "latest", "17", "17.05" ]
-    secrets: [ docker_username, docker_password ]
-    dockerfile: docker/heroku/Dockerfile
-    when:
-      branch: master
-      event: push
-
-  publish_gcr:
-    image: plugins/docker
-    repo: plugins/gcr
-    tags: [ "latest", "17", "17.05" ]
-    secrets: [ docker_username, docker_password ]
-    dockerfile: docker/gcr/Dockerfile
-    when:
-      branch: master
-      event: push
-
   publish_ecr:
-    image: plugins/docker
-    repo: plugins/ecr
-    tags: [ "latest", "17", "17.05" ]
-    secrets: [ docker_username, docker_password ]
+    image: 258875347723.dkr.ecr.us-east-1.amazonaws.com/drone-plugin-docker-ecr
+    repo: 258875347723.dkr.ecr.us-east-1.amazonaws.com/drone-plugin-docker-ecr
+    registry: 258875347723.dkr.ecr.us-east-1.amazonaws.com
+    region: us-east-1
     dockerfile: docker/ecr/Dockerfile
+    tags: [ "latest", "17", "17.05" ]
     when:
       branch: master
       event: push
